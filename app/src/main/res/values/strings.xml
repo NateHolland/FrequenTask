@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FrequenTask</string>
+    <string name="add_theme">Add Theme</string>
+    <string name="add_task">Add Task</string>
+    <string name="complete_task">Mark Done</string>
+    <string name="add_note">Add Note</string>
+    <string name="cancel">Cancel</string>
+</resources>
