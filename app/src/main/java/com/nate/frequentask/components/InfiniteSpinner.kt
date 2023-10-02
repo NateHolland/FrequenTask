@@ -13,8 +13,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.nate.frequentask.R
 import kotlinx.coroutines.launch
 
 @Composable
@@ -51,7 +53,7 @@ fun InfinteSpinner(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Every ${items[selectedItemIndex]} days",
+                    text = stringResource(id = R.string.every_x_days, selectedItem),
                     fontSize = 18.sp,
                     color = MaterialTheme.colorScheme.onBackground
                 )
@@ -71,7 +73,7 @@ fun InfinteSpinner(
                 state = listState,
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)
-                    .padding(start=20.dp, end = 20.dp, bottom = 20.dp)
+                    .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
             ) {
                 items.forEach { item ->
                     item {

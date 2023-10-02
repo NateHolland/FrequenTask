@@ -13,6 +13,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
@@ -122,7 +123,7 @@ fun TaskDetailScreen(
                         allowPastDates = true
                     )
                 }
-                if(showMarkDoneDialog){
+                if (showMarkDoneDialog) {
                     ShowMarkDoneDialog(
                         onDismiss = { showMarkDoneDialog = false },
                         onMarkDone = {
@@ -132,10 +133,17 @@ fun TaskDetailScreen(
                     )
                 }
                 // Task details
-                ElevatedButton(onClick = { showMarkDoneDialog = true }) {
+                ElevatedButton(
+                    onClick = { showMarkDoneDialog = true },
+                    modifier = Modifier.scale(1.5f).padding(16.dp)
+                ) {
                     Text(stringResource(id = R.string.complete_task))
                 }
-                Text(text = "Description:", style = MaterialTheme.typography.labelSmall)
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = stringResource(id = R.string.task_description),
+                    style = MaterialTheme.typography.labelSmall
+                )
                 if (isEditingDescription) {
                     val focusRequester = remember { FocusRequester() }
                     TextField(
@@ -168,12 +176,6 @@ fun TaskDetailScreen(
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 }
-                Text(
-                    text = task.note,
-                    modifier = Modifier
-                        .padding(4.dp),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -187,7 +189,7 @@ fun TaskDetailScreen(
                             }
                     ) {
                         Text(
-                            text = "Last Completed:",
+                            text = stringResource(id = R.string.last_completed),
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.onBackground,
                             textAlign = TextAlign.Center,
@@ -201,6 +203,15 @@ fun TaskDetailScreen(
                             textAlign = TextAlign.Center,
                             modifier = Modifier.fillMaxWidth()
                         )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = task.note,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .padding(4.dp)
+                                .fillMaxWidth(),
+                            color = MaterialTheme.colorScheme.onBackground
+                        )
                     }
                     Column(
                         modifier = Modifier
@@ -211,7 +222,7 @@ fun TaskDetailScreen(
                             }
                     ) {
                         Text(
-                            text = "Next Due:",
+                            text = stringResource(id = R.string.next_due_on),
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.onBackground,
                             textAlign = TextAlign.Center,
@@ -228,7 +239,7 @@ fun TaskDetailScreen(
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "Frequency:",
+                    text = stringResource(id = R.string.frequency),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.padding(4.dp)

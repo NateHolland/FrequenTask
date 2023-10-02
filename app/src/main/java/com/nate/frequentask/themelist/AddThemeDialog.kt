@@ -21,7 +21,7 @@ fun AddThemeDialog(
     onAddTheme: (Theme) -> Unit,
     onDismiss: () -> Unit
 ) {
-    var themeName by remember { mutableStateOf(TextFieldValue("Theme Name")) }
+    var themeName by remember { mutableStateOf(TextFieldValue("")) }
 
     Dialog(
         onDismissRequest = { onDismiss() },
@@ -42,13 +42,12 @@ fun AddThemeDialog(
                         style = MaterialTheme.typography.labelMedium
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    BasicTextField(
+                    TextField(
                         value = themeName,
                         onValueChange = { themeName = it },
+                        placeholder = { Text(text = stringResource(id = R.string.theme_name)) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .border(1.dp, MaterialTheme.colorScheme.onPrimaryContainer)
-                            .background(MaterialTheme.colorScheme.background)
                             .padding(4.dp),
                         textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                     )
@@ -61,7 +60,7 @@ fun AddThemeDialog(
                             onClick = { onDismiss() },
                             modifier = Modifier.width(140.dp)
                         ) {
-                            Text(text = "Cancel")
+                            Text(text = stringResource(id = R.string.cancel))
                         }
                         Spacer(modifier = Modifier.width(16.dp))
                         Button(
@@ -76,7 +75,7 @@ fun AddThemeDialog(
                             },
                             modifier = Modifier.width(140.dp)
                         ) {
-                            Text(text = "Add")
+                            Text(text = stringResource(id = R.string.add_theme))
                         }
                     }
                 }

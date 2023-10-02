@@ -3,7 +3,6 @@ package com.nate.frequentask.theme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -24,10 +23,10 @@ fun AddTaskDialog(
     onAddTask: (Theme.Task) -> Unit,
     onDismiss: () -> Unit
 ) {
-    var taskName by remember { mutableStateOf(TextFieldValue("Task Name")) }
-    var taskDescription by remember { mutableStateOf(TextFieldValue("Description ")) }
-    var taskFrequency by remember { mutableLongStateOf(1L) } // Default frequency is 1 day
-    var maxFrequency by remember { mutableIntStateOf(30) } // Max frequency is 5 days
+    var taskName by remember { mutableStateOf(TextFieldValue("")) }
+    var taskDescription by remember { mutableStateOf(TextFieldValue("")) }
+    var taskFrequency by remember { mutableLongStateOf(1L) } // Default frequency is every day
+    var maxFrequency by remember { mutableIntStateOf(30) } // Max frequency is every 5 days
     var items by remember {
         mutableStateOf((1..maxFrequency).toList())
     }
@@ -51,30 +50,28 @@ fun AddTaskDialog(
                         style = MaterialTheme.typography.labelMedium
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    BasicTextField(
+                    TextField(
                         value = taskName,
                         onValueChange = { taskName = it },
+                        placeholder = { Text(text = stringResource(id = R.string.task_name)) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .border(1.dp, MaterialTheme.colorScheme.onPrimaryContainer)
-                            .background(MaterialTheme.colorScheme.background)
                             .padding(4.dp),
                         textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    BasicTextField(
+                    TextField(
                         value = taskDescription,
                         onValueChange = { taskDescription = it },
+                        placeholder = { Text(text = stringResource(id = R.string.task_description)) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .border(1.dp, MaterialTheme.colorScheme.onPrimaryContainer)
-                            .background(MaterialTheme.colorScheme.background)
                             .padding(4.dp),
                         textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "Frequency:",
+                        text = stringResource(id = R.string.frequency),
                         style = MaterialTheme.typography.labelMedium
                     )
                     // Spinner for selecting frequency
@@ -96,7 +93,7 @@ fun AddTaskDialog(
                             onClick = { onDismiss() },
                             modifier = Modifier.width(140.dp)
                         ) {
-                            Text(text = "Cancel")
+                            Text(text = stringResource(id = R.string.cancel))
                         }
                         Button(
                             onClick = {
@@ -112,7 +109,7 @@ fun AddTaskDialog(
                             },
                             modifier = Modifier.width(140.dp)
                         ) {
-                            Text(text = "Add")
+                            Text(text = stringResource(id = R.string.add_task))
                         }
                     }
                 }

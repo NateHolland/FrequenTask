@@ -131,12 +131,12 @@ fun ThemeListItem(
                         onThemeDelete()
                         isExpanded = false
                     }, modifier = Modifier.scale(0.8f)) {
-                        Text(text = "Delete")
+                        Text(text = stringResource(id = R.string.delete))
                         Icon(imageVector = Icons.Default.Delete, contentDescription = null)
                     }
                     Row(modifier = Modifier.align(Alignment.CenterVertically)) {
                         Text(
-                            text = if (theme.active) "Active" else "Inactive",
+                            text = stringResource(id = if (theme.active) R.string.active else R.string.inactive),
                             style = MaterialTheme.typography.labelMedium,
                             modifier = Modifier.align(Alignment.CenterVertically)
                         )

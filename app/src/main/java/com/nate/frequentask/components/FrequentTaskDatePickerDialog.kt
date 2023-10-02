@@ -8,6 +8,8 @@ import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import com.nate.frequentask.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,14 +35,14 @@ fun FrequentTaskDatePickerDialog(
             }
 
             ) {
-                Text(text = "OK")
+                Text(text = stringResource(id = R.string.confirm))
             }
         },
         dismissButton = {
             Button(onClick = {
                 onDismiss()
             }) {
-                Text(text = "Cancel")
+                Text(text = stringResource(id = R.string.cancel))
             }
         }
     ) {

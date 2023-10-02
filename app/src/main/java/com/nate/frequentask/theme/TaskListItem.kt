@@ -11,9 +11,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.nate.frequentask.R
 import com.nate.frequentask.data.Theme
 import com.nate.frequentask.displayDate
 
@@ -64,7 +66,7 @@ fun TaskListItem(
                 onTaskDelete(task.id)
                 isExpanded = false
             }, modifier = Modifier.align(Alignment.End)) {
-                Text(text = "Delete")
+                Text(text = stringResource(id = R.string.delete))
                 Icon(imageVector = Icons.Default.Delete, contentDescription = null)
             }
         }
