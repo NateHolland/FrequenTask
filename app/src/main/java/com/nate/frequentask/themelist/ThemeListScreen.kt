@@ -23,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.nate.frequentask.R
@@ -36,7 +35,6 @@ fun ThemeListScreen(
     navController: NavController,
     themeRepository: ThemeRepository
 ) {
-    var searchText by remember { mutableStateOf(TextFieldValue()) }
     var isAddThemeDialogVisible by remember { mutableStateOf(false) }
     val themeList by themeRepository.themesList.observeAsState()
     Scaffold(
@@ -99,24 +97,25 @@ fun ThemeListItem(
     onThemeDelete: () -> Unit,
     onSetActive: (Boolean) -> Unit
 ) {
+    var active by remember { mutableStateOf(theme.active) }
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.background)
+            .background(if (active) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.surfaceDim)
             .border(1.dp, MaterialTheme.colorScheme.surfaceVariant)
             .padding(8.dp)
     ) {
         var isExpanded by remember { mutableStateOf(false) }
-        var active by remember { mutableStateOf(theme.active) }
         Column {
-            ListItem(headlineContent = { Text(text = theme.name) }, leadingContent = {
+            ListItem(headlineContent = { Text(text = theme.name, modifier = Modifier) }, leadingContent = {
                 IconButton(
                     onClick = { isExpanded = !isExpanded }
                 ) {
                     Icon(imageVector = Icons.Default.MoreVert, contentDescription = null)
                 }
             },
-                modifier = Modifier.clickable { onItemClick() }
+                modifier = Modifier.clickable { onItemClick() }.background(if (active) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.surfaceDim),
+                colors = ListItemDefaults.colors(containerColor = if (active) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.surfaceDim)
             )
 
             if (isExpanded) {
