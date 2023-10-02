@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -56,7 +55,6 @@ fun ThemeListScreen(
         content = { padding ->
             if (isAddThemeDialogVisible) {
                 AddThemeDialog(
-                    navController = navController,
                     onAddTheme = { newTheme ->
                         themeRepository.addTheme(newTheme)
                         isAddThemeDialogVisible = false
@@ -94,7 +92,6 @@ fun ThemeListScreen(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ThemeListItem(
     theme: Theme,

@@ -10,16 +10,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.navigation.NavController
 import com.nate.frequentask.R
 import com.nate.frequentask.data.Theme
-import com.nate.frequentask.components.InfinteSpinner
+import com.nate.frequentask.components.InfiniteSpinner
 import java.util.Date
 
 @Composable
 fun AddTaskDialog(
-    navController: NavController,
-    theme: Theme,
     onAddTask: (Theme.Task) -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -75,7 +72,7 @@ fun AddTaskDialog(
                         style = MaterialTheme.typography.labelMedium
                     )
                     // Spinner for selecting frequency
-                    InfinteSpinner(
+                    InfiniteSpinner(
                         selectedItem = taskFrequency.toInt(),
                         onValueChange = { taskFrequency = it.toLong() },
                         more = {

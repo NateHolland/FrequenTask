@@ -3,7 +3,6 @@ package com.nate.frequentask.themelist
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -11,13 +10,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.navigation.NavController
 import com.nate.frequentask.R
 import com.nate.frequentask.data.Theme
 
 @Composable
 fun AddThemeDialog(
-    navController: NavController,
     onAddTheme: (Theme) -> Unit,
     onDismiss: () -> Unit
 ) {

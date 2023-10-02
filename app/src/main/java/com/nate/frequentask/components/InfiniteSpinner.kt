@@ -20,7 +20,7 @@ import com.nate.frequentask.R
 import kotlinx.coroutines.launch
 
 @Composable
-fun InfinteSpinner(
+fun InfiniteSpinner(
     items: List<Int>,
     more: () -> Unit,
     selectedItem: Int,
@@ -28,7 +28,7 @@ fun InfinteSpinner(
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     val selectedItemIndex = items.indexOf(selectedItem)
-    var listState = rememberLazyListState()
+    val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
 
     Column(

@@ -1,3 +1,5 @@
+package com.nate.frequentask.theme
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.BasicTextField
@@ -13,10 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.nate.frequentask.theme.TaskListItem
-import com.nate.frequentask.data.Theme
 import com.nate.frequentask.data.ThemeRepository
-import com.nate.frequentask.theme.AddTaskDialog
 import androidx.compose.foundation.lazy.items
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -79,13 +78,11 @@ fun ThemeDetailScreen(
         content = { padding ->
             if (isAddTaskDialogVisible) {
                 AddTaskDialog(
-                    navController = navController,
                     onAddTask = { newTask ->
                         themeRepository.addTask(themeID, newTask)
                         isAddTaskDialogVisible = false
                     },
-                    onDismiss = { isAddTaskDialogVisible = false },
-                    theme = theme
+                    onDismiss = { isAddTaskDialogVisible = false }
                 )
             }
             Column(

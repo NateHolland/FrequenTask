@@ -72,7 +72,7 @@ val md_theme_dark_scrim = Color(0xFF000000)
 
 val seed = Color(0xFF6750A4)
 
-private val LightColors = lightColorScheme(
+private val lightColors = lightColorScheme(
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
     primaryContainer = md_theme_light_primaryContainer,
@@ -105,7 +105,7 @@ private val LightColors = lightColorScheme(
 )
 
 
-private val DarkColors = darkColorScheme(
+private val darkColors = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
     primaryContainer = md_theme_dark_primaryContainer,
@@ -140,12 +140,12 @@ private val DarkColors = darkColorScheme(
 @Composable
 fun FrequentAskTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable() () -> Unit
+    content: @Composable () -> Unit
 ) {
     val colors = if (!useDarkTheme) {
-        LightColors
+        lightColors
     } else {
-        DarkColors
+        darkColors
     }
 
     MaterialTheme(

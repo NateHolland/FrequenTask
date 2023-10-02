@@ -1,6 +1,6 @@
 package com.nate.frequentask
 
-import ThemeDetailScreen
+import com.nate.frequentask.theme.ThemeDetailScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,14 +15,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
-import com.nate.frequentask.data.Theme
 import com.nate.frequentask.data.ThemeRepository
 import com.nate.frequentask.task.TaskDetailScreen
 import com.nate.frequentask.themelist.ThemeListScreen
 import com.nate.frequentask.ui.theme.FrequentAskTheme
-import java.util.Date
 
-class MainActivity() : ComponentActivity() {
+class MainActivity : ComponentActivity() {
     private val themeRepository by lazy { ThemeRepository(applicationContext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +68,6 @@ class MainActivity() : ComponentActivity() {
                             themeList?.find { it.id == themeId }?.also { theme ->
                                 theme.tasks.find { it.id == taskId }?.also { task ->
                                     TaskDetailScreen(
-                                        navController = navController,
                                         theme = theme,
                                         task = task,
                                         themeRepository = themeRepository

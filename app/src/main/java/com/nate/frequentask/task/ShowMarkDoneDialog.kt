@@ -26,7 +26,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.nate.frequentask.R
-import com.nate.frequentask.data.Theme
 
 
 @Composable

@@ -21,13 +21,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.nate.frequentask.R
 import com.nate.frequentask.components.FrequentTaskDatePickerDialog
 import com.nate.frequentask.data.Theme
 import com.nate.frequentask.data.updateFrequency
 import com.nate.frequentask.data.updateLastCompleted
-import com.nate.frequentask.components.InfinteSpinner
+import com.nate.frequentask.components.InfiniteSpinner
 import com.nate.frequentask.data.ThemeRepository
 import com.nate.frequentask.data.complete
 import com.nate.frequentask.displayDate
@@ -35,7 +34,6 @@ import com.nate.frequentask.displayDate
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskDetailScreen(
-    navController: NavController,
     theme: Theme,
     task: Theme.Task,
     themeRepository: ThemeRepository
@@ -245,7 +243,7 @@ fun TaskDetailScreen(
                     modifier = Modifier.padding(4.dp)
                 )
                 // Spinner for selecting frequency
-                InfinteSpinner(
+                InfiniteSpinner(
                     selectedItem = task.frequency.toInt(),
                     onValueChange = {
                         themeRepository.updateTask(
