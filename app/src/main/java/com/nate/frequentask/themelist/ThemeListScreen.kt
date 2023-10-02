@@ -37,6 +37,7 @@ fun ThemeListScreen(
 ) {
     var isAddThemeDialogVisible by remember { mutableStateOf(false) }
     val themeList by themeRepository.themesList.observeAsState()
+    var expanded: String? by remember { mutableStateOf(null) }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -69,18 +70,26 @@ fun ThemeListScreen(
                 LazyColumn(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    items(themeList ?: emptyList()) { theme ->
+                    items(themeList?.sortedBy { it.created } ?: emptyList()) { theme ->
                         ThemeListItem(
                             theme = theme,
                             onItemClick = {
                                 navController.navigate("themeDetail/${theme.id}")
                             },
                             onThemeDelete = {
-                                themeRepository.deleteTheme(theme)
+                                themeRepository.deleteTheme(it)
+                                navController.apply {
+                                    val id = currentDestination!!.id
+                                    popBackStack(id, true)
+                                    navigate(id)
+
+                                }
                             },
                             onSetActive = { active ->
                                 themeRepository.setActiveTheme(theme, active)
-                            }
+                            },
+                            expanded = expanded,
+                            expand = { expanded = it }
                         )
                     }
                 }
@@ -94,10 +103,13 @@ fun ThemeListScreen(
 fun ThemeListItem(
     theme: Theme,
     onItemClick: () -> Unit,
-    onThemeDelete: () -> Unit,
-    onSetActive: (Boolean) -> Unit
+    onThemeDelete: (Theme) -> Unit,
+    onSetActive: (Boolean) -> Unit,
+    expanded: String?,
+    expand: (String?) -> Unit
 ) {
     var active by remember { mutableStateOf(theme.active) }
+    var isExpanded = expanded == theme.id
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -105,16 +117,24 @@ fun ThemeListItem(
             .border(1.dp, MaterialTheme.colorScheme.surfaceVariant)
             .padding(8.dp)
     ) {
-        var isExpanded by remember { mutableStateOf(false) }
         Column {
-            ListItem(headlineContent = { Text(text = theme.name, modifier = Modifier) }, leadingContent = {
-                IconButton(
-                    onClick = { isExpanded = !isExpanded }
-                ) {
-                    Icon(imageVector = Icons.Default.MoreVert, contentDescription = null)
-                }
-            },
-                modifier = Modifier.clickable { onItemClick() }.background(if (active) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.surfaceDim),
+            ListItem(headlineContent = { Text(text = theme.name, modifier = Modifier) },
+                leadingContent = {
+                    IconButton(
+                        onClick = {
+                            if (expanded != theme.id) {
+                                expand(theme.id)
+                            } else {
+                                expand(null)
+                            }
+                        }
+                    ) {
+                        Icon(imageVector = Icons.Default.MoreVert, contentDescription = null)
+                    }
+                },
+                modifier = Modifier
+                    .clickable { onItemClick() }
+                    .background(if (active) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.surfaceDim),
                 colors = ListItemDefaults.colors(containerColor = if (active) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.surfaceDim)
             )
 
@@ -124,7 +144,7 @@ fun ThemeListItem(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     OutlinedButton(onClick = {
-                        onThemeDelete()
+                        onThemeDelete(theme)
                         isExpanded = false
                     }, modifier = Modifier.scale(0.8f)) {
                         Text(text = stringResource(id = R.string.delete))

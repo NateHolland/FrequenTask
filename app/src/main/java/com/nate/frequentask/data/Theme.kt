@@ -8,7 +8,8 @@ data class Theme(
     @SerializedName("name") val name: String,
     @SerializedName("id") val id: String = UUID.randomUUID().toString(),
     @SerializedName("active")val active: Boolean,
-    @SerializedName("tasks")val tasks: List<Task>
+    @SerializedName("tasks")val tasks: List<Task>,
+    @SerializedName("created")val created: Long = Date().time
 ) {
     data class Task(
         @SerializedName("name") val name: String,
