@@ -1,5 +1,7 @@
 package com.nate.frequentask.theme
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.BasicTextField
@@ -17,8 +19,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.nate.frequentask.data.ThemeRepository
 import androidx.compose.foundation.lazy.items
+import com.nate.frequentask.displayDate
+import com.nate.frequentask.displayVal
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun ThemeDetailScreen(
     navController: NavController,
@@ -96,15 +100,31 @@ fun ThemeDetailScreen(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    items(theme.tasks.sortedBy { it.nextDueOn }.reversed()) { task ->
-                        TaskListItem(
-                            task = task,
-                            onTaskClick = { navController.navigate("taskDetail/${theme.id}/${it}") },
-                            onTaskDelete = { themeRepository.deleteTask(themeID, it) }
-                        )
-                    }
+                    theme.tasks.sortedBy { it.nextDueOn }.groupBy { it.nextDueOn.displayVal() }
+                        .map { taskGroup ->
+                            stickyHeader {
+                                Text(
+                                    text = taskGroup.value.first().nextDueOn.displayDate(),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                                        .padding(4.dp),
+                                    style = MaterialTheme.typography.labelMedium.copy(
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                )
+                            }
+                            items(taskGroup.value) { task ->
+                                TaskListItem(
+                                    task = task,
+                                    onTaskClick = { navController.navigate("taskDetail/${theme.id}/${it}") },
+                                    onTaskDelete = { themeRepository.deleteTask(themeID, it) }
+                                )
+                            }
+                        }
                 }
             }
         }
     )
 }
+
