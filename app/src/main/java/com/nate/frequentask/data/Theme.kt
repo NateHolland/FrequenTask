@@ -1,5 +1,7 @@
 package com.nate.frequentask.data
 import com.google.gson.annotations.SerializedName
+import com.nate.frequentask.isDue
+import com.nate.frequentask.isLate
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -31,4 +33,10 @@ fun Theme.Task.updateLastCompleted(it: Long): Theme.Task {
 fun Theme.Task.complete(note: String): Theme.Task {
     val now = Date().time
     return copy(lastCompletedOn = now, nextDueOn = now.plus(TimeUnit.DAYS.toMillis(frequency)), note = note)
+}
+fun Theme.Task.isDue(): Boolean {
+    return nextDueOn.isDue()
+}
+fun Theme.Task.isLate(): Boolean {
+    return nextDueOn.isLate()
 }

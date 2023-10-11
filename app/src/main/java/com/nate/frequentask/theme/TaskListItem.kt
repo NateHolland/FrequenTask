@@ -84,6 +84,6 @@ fun TaskListItem(
 }
 
 @Composable
-private fun formatNextDueOn(timestamp: Long): String {
+fun formatNextDueOn(timestamp: Long): String {
     return "Next Due On: ${timestamp.displayDate()}"
 }

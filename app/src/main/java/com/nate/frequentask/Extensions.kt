@@ -3,6 +3,7 @@ package com.nate.frequentask
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -26,6 +27,12 @@ fun Long.displayGroupVal(): String {
     return SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date(this)).let {
         if (this.isInthePast()) "past" else it
     }
+}
+fun Long.isDue(): Boolean {
+    return !LocalDate.now().isBefore(Instant.ofEpochMilli(this).atZone(ZoneId.systemDefault()).toLocalDate())
+}
+fun Long.isLate(): Boolean {
+    return LocalDate.now().isAfter(Instant.ofEpochMilli(this).atZone(ZoneId.systemDefault()).toLocalDate())
 }
 
 private fun yesterday(): String {

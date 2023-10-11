@@ -20,4 +20,5 @@
     <string name="yesterday">Yesterday</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="overdue">Overdue</string>
+    <string name="theme_list_content_description">List All Themes</string>
 </resources>

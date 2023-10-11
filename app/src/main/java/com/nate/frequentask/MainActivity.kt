@@ -1,6 +1,5 @@
 package com.nate.frequentask
 
-import com.nate.frequentask.theme.ThemeDetailScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,7 +16,9 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.nate.frequentask.data.ThemeRepository
 import com.nate.frequentask.task.TaskDetailScreen
+import com.nate.frequentask.theme.ThemeDetailScreen
 import com.nate.frequentask.themelist.ThemeListScreen
+import com.nate.frequentask.today.TodayScreen
 import com.nate.frequentask.ui.theme.FrequentAskTheme
 
 class MainActivity : ComponentActivity() {
@@ -33,7 +34,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.primaryContainer
                 ) {
-                    NavHost(navController = navController, startDestination = "themeList") {
+                    NavHost(navController = navController, startDestination = "todayScreen") {
+                        composable("todayScreen") {
+                            TodayScreen(
+                                navController,
+                                themeRepository = themeRepository
+                            )
+                        }
                         composable("themeList") {
                             ThemeListScreen(
                                 navController,
